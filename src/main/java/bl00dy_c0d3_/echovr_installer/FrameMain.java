@@ -195,7 +195,6 @@ public class FrameMain extends JFrame {
 
 
 
-
     //Lädt eine GUI-Grafik und gibt sie zurück:
     private java.awt.Image loadGUI(String imageName) {
         URL imageURL = getClass().getClassLoader().getResource(imageName);

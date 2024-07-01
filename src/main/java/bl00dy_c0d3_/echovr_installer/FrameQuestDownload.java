@@ -194,6 +194,7 @@ public class FrameQuestDownload extends JDialog {
 
 
 
+
     //This function checks if java is installed
     private int checkIfJavaIsInstalled(){
         Process process = null;
