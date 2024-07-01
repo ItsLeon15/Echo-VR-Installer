@@ -56,7 +56,9 @@ public class PatchAPK {
         Map<String, String> zipProperties = new HashMap<>();
         zipProperties.put("create", "false");
         zipProperties.put("encoding", "UTF-8");
-        URI zipDisk = URI.create("jar:file:/" + pathToApkObb.replace("\\", "/") + "/changedConfig.apk");
+        //URI zipDisk = URI.create("jar:file:/" + pathToApkObb.replace("\\", "/") + "/changedConfig.apk"); //Seems like this line did worked compiled, but not when just when I just run it. Will leave it for reference
+        URI zipDisk = URI.create("jar:file:" + pathToApkObb.replace("\\", "/") + "/changedConfig.apk");
+
         System.out.println(zipDisk);
 
         // Create ZIP file system

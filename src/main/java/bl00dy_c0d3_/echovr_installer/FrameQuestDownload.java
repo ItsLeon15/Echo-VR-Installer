@@ -143,11 +143,13 @@ public class FrameQuestDownload extends JDialog {
                 String apkfileName;
                 if (checkBoxConfig.isSelected()){
                     int result = checkIfJavaIsInstalled();
+                    /*
                     if (result == 0){
                         ErrorDialog error = new ErrorDialog();
                         error.errorDialog(outFrame, "Java not Found", "<html>No Java Runtime found. For the Config patch to work, you need to install the \"Java Runtime\"</html>", 2);
                         return;
                     }
+                     */
 
                     File f = new File(targetPath + "/Echo_patched.apk");
                     if(f.exists() && !f.isDirectory()) {
