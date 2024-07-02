@@ -25,17 +25,20 @@ public class InstallerQuest {
         InstallerQuest outFrame = this;
 
         if (isWindows) {
-            String dir = tempPath + "platform-tools/";
+            String dir = tempPath + "\\platform-tools\\";
             File file = new File(dir);
             if (!file.exists()){
                 file.mkdirs();
             }
+            System.out.println(dir);
             fileList = new String[]{"adb.exe", "AdbWinApi.dll", "AdbWinUsbApi.dll", "etc1tool.exe", "fastboot.exe", "hprof-conv.exe", "libwinpthread-1.dll", "make_f2fs.exe", "make_f2fs_casefold.exe", "mke2fs.conf", "mke2fs.exe", "NOTICE.txt", "source.properties", "sqlite3.exe"};
             //TODO read filelist from the folder instead of that
             for (int a = 0; a < fileList.length; a++) {
-                targetPath = Paths.get(tempPath + "/platform-tools/" + fileList[a]);
+                targetPath = Paths.get(tempPath + "\\platform-tools\\" + fileList[a]);
                 try {
                     InputStream stream = getClass().getClassLoader().getResourceAsStream("platform-tools/" + fileList[a]);
+                    System.out.println(tempPath + "\\platform-tools\\" + fileList[a]);
+                    System.out.println(stream + "");
                     Files.copy(stream, targetPath, StandardCopyOption.REPLACE_EXISTING);
                 } catch (Exception e) {
 
@@ -91,9 +94,16 @@ public class InstallerQuest {
         // Check if any device is connected
         int deviceConnected = checkQuestStatus();
         if (deviceConnected == 0) {
-
-            File apkFile = new File(pathToApkObb + "/" + apkfileName);
-            File obbFile = new File(pathToApkObb + "/" + obbfileName);
+            File apkFile = null;
+            File obbFile = null;
+            if(isWindows) {
+                apkFile = new File(pathToApkObb + "\\" + apkfileName);
+                obbFile = new File(pathToApkObb + "\\" + obbfileName);
+            }
+            else{
+                apkFile = new File(pathToApkObb + "/" + apkfileName);
+                obbFile = new File(pathToApkObb + "/" + obbfileName);
+            }
             if(!apkFile.exists() ||  !obbFile.exists()) {
                 System.out.println("APK or OBB FILE NOT FOUND");
                 ErrorDialog error = new ErrorDialog();
@@ -110,10 +120,10 @@ public class InstallerQuest {
 
 
             if(isWindows) {
-                runShellCommand(tempPath + "/platform-tools/adb.exe " + "uninstall com.readyatdawn.r15", 1);
-                runShellCommand(tempPath + "/platform-tools/adb.exe " + "install " + pathToApkObb + "/" + apkfileName, 2);
-                runShellCommand(tempPath + "/platform-tools/adb.exe " + "shell \"mkdir /storage/self/primary/Android/obb/com.readyatdawn.r15\"", 3);
-                runShellCommand(tempPath + "/platform-tools/adb.exe " + "push " + pathToApkObb + "/" + obbfileName + " \"/storage/self/primary/Android/obb/com.readyatdawn.r15/\"", 4);
+                runShellCommand(tempPath + "\\platform-tools\\adb.exe " + "uninstall com.readyatdawn.r15", 1);
+                runShellCommand(tempPath + "\\platform-tools\\adb.exe " + "install " + pathToApkObb + "\\" + apkfileName, 2);
+                runShellCommand(tempPath + "\\platform-tools\\adb.exe " + "shell \"mkdir /storage/self/primary/Android/obb/com.readyatdawn.r15\"", 3);
+                runShellCommand(tempPath + "\\platform-tools\\adb.exe " + "push " + pathToApkObb + "\\" + obbfileName + " \"/storage/self/primary/Android/obb/com.readyatdawn.r15/\"", 4);
             }
             else{
                 runShellCommand(tempPath + "/" +  folder + "/adb " + "uninstall com.readyatdawn.r15", 1);
@@ -155,7 +165,7 @@ public class InstallerQuest {
         Process process = null;
         try {
             if(isWindows) {
-                process = new ProcessBuilder(tempPath + "/platform-tools/adb.exe", "devices").start();
+                process = new ProcessBuilder(tempPath + "\\platform-tools\\adb.exe", "devices").start();
             }
             else if(mac){
                 process = new ProcessBuilder(tempPath + "/platform-tools-mac/adb", "devices").start();
@@ -165,7 +175,7 @@ public class InstallerQuest {
             }
 
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         //TODO ^
 
@@ -180,7 +190,10 @@ public class InstallerQuest {
             }
 
         }
-        catch (IOException e){}
+        catch (IOException e){
+            e.printStackTrace();
+
+        }
         //TODO ^
 
         // Print the result
