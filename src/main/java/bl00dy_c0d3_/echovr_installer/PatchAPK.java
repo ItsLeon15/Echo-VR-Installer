@@ -57,7 +57,11 @@ public class PatchAPK {
         zipProperties.put("create", "false");
         zipProperties.put("encoding", "UTF-8");
         //URI zipDisk = URI.create("jar:file:/" + pathToApkObb.replace("\\", "/") + "/changedConfig.apk"); //Seems like this line did worked compiled, but not when just when I just run it. Will leave it for reference
-        URI zipDisk = URI.create("jar:file:" + pathToApkObb.replace("\\", "/") + "/changedConfig.apk");
+        //URI zipDisk = URI.create("jar:file:" + pathToApkObb.replace("\\", "/") + "/changedConfig.apk");
+        //URI zipDisk = URI.create("jar:file:" + pathToApkObb + "/changedConfig.apk");
+        Path changedConfigPath = Paths.get(pathToApkObb, "changedConfig.apk");
+        URI zipDisk = URI.create("jar:file:/" + changedConfigPath.toUri().getPath().replaceFirst("/", ""));
+
 
         System.out.println(zipDisk);
 
