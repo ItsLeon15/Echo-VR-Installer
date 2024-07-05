@@ -77,12 +77,31 @@ public class PatchAPK {
 
     }
 
+    //Get the path to the "packed" Java Runtime Env
+    private static String getJavaExecutablePath() {
+        // This method should return the path to the bundled JRE's java executable
+        // Adjust this path according to how jpackage bundles the JRE
+        String jrePath = new File(System.getProperty("java.home"), "bin/java").getAbsolutePath();
+        return jrePath;
+    }
+
+
     //Patch the APK
     private void patchAPK(String pathToApkObb){
         Process process = null;
+        ProcessBuilder processBuilder;
         try {
-            System.out.println("java" + "-jar" +  tempPath + "/uber/uber-apk-signer-1.3.0.jar" + "--apks" + pathToApkObb + "/changedConfig.apk");
-            process = new ProcessBuilder("java", "-jar", tempPath + "/uber/uber-apk-signer-1.3.0.jar", "--apks", pathToApkObb + "/changedConfig.apk").start();
+            String javaExecutablePath = getJavaExecutablePath();
+            String jarPath = new File(tempPath + "/uber/uber-apk-signer-1.3.0.jar").getAbsolutePath();
+            //process = new ProcessBuilder("java", "-jar", tempPath + "/uber/uber-apk-signer-1.3.0.jar", "--apks", pathToApkObb + "/changedConfig.apk").start();
+            processBuilder = new ProcessBuilder(
+                    javaExecutablePath,
+                    "-jar",
+                    jarPath,
+                    "--apks",
+                    pathToApkObb + "/changedConfig.apk"
+            );
+            process = processBuilder.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
