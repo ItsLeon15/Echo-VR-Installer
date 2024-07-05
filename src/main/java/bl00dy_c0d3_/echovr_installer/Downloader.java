@@ -41,12 +41,21 @@ public class Downloader implements Runnable {
 
 
     public void run() {
-        System.out.println("1");
-        File theDir = new File(localFilePath);
-        if (!theDir.exists()){
-            System.out.println("2");
-            theDir.mkdirs();
+        File file = new File(localFilePath);
+        System.out.println(localFilePath);
+        // Attempt to create the directory and check the result
+        if (!file.exists()) {
+            if (file.mkdirs()) {
+                System.out.println("Directory created successfully");
+            } else {
+                System.out.println("Failed to create directory");
+                new ErrorDialog().errorDialog(frame, "Restart as Admin", "<html>You tried to download into a path that requires Admin rights.<br>Restart the App in Admin Mode!</html>", -1);
+                return; // Exit if the directory could not be created
+            }
+        } else {
+            System.out.println("Directory already exists");
         }
+
         try (BufferedInputStream in = new BufferedInputStream(new URL(fileUrl).openStream());
              FileOutputStream fileOutputStream = new FileOutputStream(localFilePath + "/" + filename)) {
             System.out.println("3");
