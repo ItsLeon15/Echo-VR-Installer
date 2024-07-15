@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static bl00dy_c0d3_.echovr_installer.Helpers.*;
+import static bl00dy_c0d3_.echovr_installer.helpers.Helpers.*;
 
 public class FrameMain extends JFrame {
     private static final int FRAME_WIDTH = 1280;

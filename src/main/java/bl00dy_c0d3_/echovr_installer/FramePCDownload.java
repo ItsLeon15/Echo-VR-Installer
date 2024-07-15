@@ -11,8 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 
-import static bl00dy_c0d3_.echovr_installer.Helpers.jsonFileChooser;
-import static bl00dy_c0d3_.echovr_installer.Helpers.pathFolderChooser;
+import static bl00dy_c0d3_.echovr_installer.helpers.Helpers.pathFolderChooser;
 
 public class FramePCDownload extends JDialog {
     TorrentDownload downloader = null;

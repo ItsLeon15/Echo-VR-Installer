@@ -1,35 +1,16 @@
-package bl00dy_c0d3_.echovr_installer;
+package bl00dy_c0d3_.echovr_installer.helpers;
 
-import org.jetbrains.annotations.Contract;
+import bl00dy_c0d3_.echovr_installer.ErrorDialog;
+import bl00dy_c0d3_.echovr_installer.SpecialLabel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
 
 public class Helpers {
-    @Contract("_, _ -> new")
-    public static @NotNull SpecialLabel createSpecialLabel(String text, int fontSize) {
-        return new SpecialLabel(text, fontSize);
-    }
-
-    public static @NotNull SpecialLabel createSpecialLabel(@NotNull String text, int fontSize, int x, int y) {
-        SpecialLabel label = createSpecialLabel(text, fontSize);
-        label.setLocation(x, y);
-        return label;
-    }
-
-    public static @NotNull SpecialLabel createSpecialLabel(String text, int fontSize, int x, int y, Dimension size, Color foreground, @NotNull Color background) {
-        SpecialLabel label = createSpecialLabel(text, fontSize, x, y);
-        label.setSize(size);
-        label.setForeground(foreground);
-        label.setBackground(new Color(background.getRed(), background.getGreen(), background.getBlue(), 200));
-        return label;
-    }
-
     public static @Nullable Image loadGUI(String imageName) {
         URL imageURL = Helpers.class.getClassLoader().getResource(imageName);
         return imageURL == null ? null : new ImageIcon(imageURL, imageName).getImage();

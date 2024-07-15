@@ -1,5 +1,6 @@
 package bl00dy_c0d3_.echovr_installer;
 
+import bl00dy_c0d3_.echovr_installer.helpers.Helpers;
 import com.frostwire.jlibtorrent.SessionManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -7,16 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static bl00dy_c0d3_.echovr_installer.Helpers.jsonFileChooser;
-import static bl00dy_c0d3_.echovr_installer.Helpers.*;
+import static bl00dy_c0d3_.echovr_installer.helpers.Helpers.jsonFileChooser;
+import static bl00dy_c0d3_.echovr_installer.helpers.LabelHelper.createSpecialLabel;
 
 public class FrameQuestDownload extends JDialog {
     TorrentDownload downloader = null;
@@ -140,7 +138,7 @@ public class FrameQuestDownload extends JDialog {
 
 
     private void addSpecialLabels(@NotNull JPanel back) {
-        back.add(Helpers.createSpecialLabel("Progress = ", 17, 282, 40, new Dimension(240, 38), Color.BLACK, new Color(255, 255, 255, 200)));
+        back.add(createSpecialLabel("Progress = ", 17, 282, 40, new Dimension(240, 38), Color.BLACK, new Color(255, 255, 255, 200)));
 
 
         //Progressbar

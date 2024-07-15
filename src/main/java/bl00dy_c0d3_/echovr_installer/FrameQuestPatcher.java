@@ -7,14 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static bl00dy_c0d3_.echovr_installer.Helpers.*;
+import static bl00dy_c0d3_.echovr_installer.helpers.Helpers.*;
+import static bl00dy_c0d3_.echovr_installer.helpers.LabelHelper.createSpecialLabel;
 
 public class FrameQuestPatcher extends JDialog {
     private static final int FRAME_WIDTH = 1280;
@@ -31,8 +29,8 @@ public class FrameQuestPatcher extends JDialog {
         initComponents();
         this.setVisible(true);
     }
-    JDialog outframe = this;
 
+    JDialog outframe = this;
 
     @Override
     public void dispose() {
@@ -113,7 +111,6 @@ public class FrameQuestPatcher extends JDialog {
         installtoQuest.installAPK(targetPath.toString(), apkfileName, "main.4987566.com.readyatdawn.r15.obb", labelQuestProgress4, this);
     }
 
-
     private void addBackgroundImage(@NotNull JPanel back, String imagePath, int x, int y, int width, int height) {
         Background image = new Background(imagePath);
         image.setLocation(x, y);
@@ -122,52 +119,36 @@ public class FrameQuestPatcher extends JDialog {
         back.add(image);
     }
 
-
     SpecialLabel labelQuestProgress2 = new SpecialLabel(" 0%", 15);
     SpecialLabel labelQuestProgress3 = new SpecialLabel(" 0%", 15);
     SpecialLabel labelQuestProgress4 = new SpecialLabel("Not started yet", 18);
 
     private void addSpecialLabels(@NotNull JPanel back) {
-        back.add(Helpers.createSpecialLabel("1. Join the Echo VR Patcher Discord Server:", 16, 40, 40));
-        back.add(Helpers.createSpecialLabel("2. React to the message on Discord", 16, 40, 135));
-        back.add(Helpers.createSpecialLabel("by clicking on the smiley:", 16, 40, 165));
+        back.add(createSpecialLabel("1. Join the Echo VR Patcher Discord Server:", 16, 40, 40));
+        back.add(createSpecialLabel("2. React to the message on Discord", 16, 40, 135));
+        back.add(createSpecialLabel("by clicking on the smiley:", 16, 40, 165));
 
-        back.add(Helpers.createSpecialLabel("3. You will receive a private Message from the", 16, 40, 335));
-        back.add(Helpers.createSpecialLabel("\"EchoSignUp\" Bot. Right Click on the blue URL ", 16, 40, 365));
-        back.add(Helpers.createSpecialLabel("and select Copy Link. NOT COPY MESSAGE LINK!", 16, 40, 395));
+        back.add(createSpecialLabel("3. You will receive a private Message from the", 16, 40, 335));
+        back.add(createSpecialLabel("\"EchoSignUp\" Bot. Right Click on the blue URL ", 16, 40, 365));
+        back.add(createSpecialLabel("and select Copy Link. NOT COPY MESSAGE LINK!", 16, 40, 395));
 
-        back.add(Helpers.createSpecialLabel("4. Paste the link with CTRL-V:", 16, 582, 40));
-        back.add(Helpers.createSpecialLabel("5. Start the Download Process:", 16, 582, 170));
-        back.add(Helpers.createSpecialLabel("5(a). Optional config.json. Don't use if you don't need to:", 16, 582, 295));
-        back.add(Helpers.createSpecialLabel("6. After the Download above is finished, start this button:", 16, 582, 490));
-        back.add(Helpers.createSpecialLabel("Progress = ", 17, 810, 210, new Dimension(130, 38), Color.BLACK, Color.WHITE));
+        back.add(createSpecialLabel("4. Paste the link with CTRL-V:", 16, 582, 40));
+        back.add(createSpecialLabel("5. Start the Download Process:", 16, 582, 170));
+        back.add(createSpecialLabel("5(a). Optional config.json. Don't use if you don't need to:", 16, 582, 295));
+        back.add(createSpecialLabel("6. After the Download above is finished, start this button:", 16, 582, 490));
+        back.add(createSpecialLabel("Progress = ", 17, 810, 210, new Dimension(130, 38), Color.BLACK, Color.WHITE));
 
         String configPath = "Optional: Choose config.json on the button above";
-        labelConfigPath = Helpers.createSpecialLabel(configPath, 14, 582, 455, new Dimension(600, 25), Color.BLACK, Color.WHITE);
+        labelConfigPath = createSpecialLabel(configPath, 14, 582, 455, new Dimension(600, 25), Color.BLACK, Color.WHITE);
         back.add(labelConfigPath);
 
-        //THIS NEED TO BE SET MANUALLY, AS I NEED TO ACCESS IT LATER
-        labelQuestProgress2.setHorizontalAlignment(SwingConstants.LEFT);  // Set text alignment to left
-        labelQuestProgress2.setLocation(940,210);
-        labelQuestProgress2.setSize(130, 19);
-        labelQuestProgress2.setBackground(new Color(255, 255, 255, 200));
-        labelQuestProgress2.setForeground(Color.BLACK);
-        back.add(labelQuestProgress2);
+        labelQuestProgress2 = createSpecialLabel(null, 17, 940, 210, new Dimension(130, 19), Color.BLACK, Color.WHITE, SwingConstants.LEFT);
+        labelQuestProgress3 = createSpecialLabel(null, 17, 940, 229, new Dimension(130, 19), Color.BLACK, Color.WHITE, SwingConstants.LEFT);
+        labelQuestProgress4 = createSpecialLabel(null, 17, 885, 587, new Dimension(300, 50), Color.BLACK, Color.WHITE, SwingConstants.LEFT);
 
-        labelQuestProgress3.setHorizontalAlignment(SwingConstants.LEFT);  // Set text alignment to left
-        labelQuestProgress3.setLocation(940,229);
-        labelQuestProgress3.setSize(130, 19);
-        labelQuestProgress3.setBackground(new Color(255, 255, 255, 200));
-        labelQuestProgress3.setForeground(Color.BLACK);
         back.add(labelQuestProgress3);
-
-        labelQuestProgress4.setHorizontalAlignment(SwingConstants.LEFT);  // Set text alignment to left
-        labelQuestProgress4.setLocation(885,587);
-        labelQuestProgress4.setSize(300, 50);
-        labelQuestProgress4.setBackground(new Color(255, 255, 255, 200));
-        labelQuestProgress4.setForeground(Color.BLACK);
+        back.add(labelQuestProgress2);
         back.add(labelQuestProgress4);
-
     }
 
     private void addSpecialHyperlinks(@NotNull JPanel back) {
